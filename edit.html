@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Hub</title>
+    <style>
+        /* Previous styles remain unchanged */
+        /* Add these new styles */
+        .user-profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        #user-profile-toggle:checked ~ .user-profile-dropdown {
+            display: block;
+        }
+
+        .user-profile-content {
+            padding: 1rem;
+        }
+
+        .user-profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 1rem;
+        }
+
+        .user-profile-avatar {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background-color: #00030a;
+            margin-right: 1rem;
+        }
+
+        .user-profile-details {
+            flex-grow: 1;
+        }
+
+        .user-profile-name {
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .user-profile-email {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .user-profile-actions {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-profile-action {
+            padding: 0.75rem;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .user-profile-action:hover {
+            background-color: #f3f4f6;
+        }
+
+        .logout-action {
+            color: #dc2626;
+        }
+
+        .user-section {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <!-- Add this hidden checkbox for user profile toggle -->
+    <input type="checkbox" id="user-profile-toggle" hidden>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">Campus Hub</div>
+            </div>
+            <div class="user-section">
+                <!-- Notification and user avatar -->
+                <label for="notification-toggle" class="notification-icon">🔔</label>
+                <div class="notification-panel">
+                    <div class="notification-item">New Library Hours Announced</div>
+                    <div class="notification-item">Campus Event Tonight</div>
+                    <div class="notification-item">Maintenance Update</div>
+                </div>
+                
+                <!-- User avatar with label for dropdown toggle -->
+                <label for="user-profile-toggle" class="user-avatar"></label>
+                
+                <!-- User Profile Dropdown -->
+                <div class="user-profile-dropdown">
+                    <div class="user-profile-content">
+                        <div class="user-profile-header">
+                            <div class="user-profile-avatar"></div>
+                            <div class="user-profile-details">
+                                <div class="user-profile-name">Jane Doe</div>
+                                <div class="user-profile-email">jane.doe@university.edu</div>
+                            </div>
+                        </div>
+                        <div class="user-profile-actions">
+                            <button class="user-profile-action">My Profile</button>
+                            <button class="user-profile-action">Settings</button>
+                            <button class="user-profile-action logout-action">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Rest of the previous HTML remains unchanged -->
+    <main>
+        <!-- Previous main content -->
+    </main>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Hub</title>
+    <style>
+        /* Original styles remain unchanged */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #01080f;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #e08206;
+            color: rgb(243, 236, 236);
+            padding: 1rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-icon, .user-avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            background-color: #00030a;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        /* Category System */
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .category-btn.active {
+            background-color: #dbeafe;
+            color: #fa8705;
+        }
+
+        .category-icon {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* Content Sections */
+        .resources-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .resource-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .bookmark-icon {
+            cursor: pointer;
+            color: #d1d5db;
+        }
+
+        .bookmark-icon.active {
+            color: #fbbf24;
+            fill: #fbbf24;
+        }
+
+        .resource-description {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .resource-status {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #2563eb;
+        }
+
+        .status-indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #10b981;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        /* Category Toggle System */
+        #academic:checked ~ main .academic-section,
+        #facilities:checked ~ main .facilities-section,
+        #student-life:checked ~ main .student-life-section,
+        #events:checked ~ main .events-section,
+        #transport:checked ~ main .transport-section {
+            display: grid;
+        }
+
+        #academic:checked ~ main [for="academic"],
+        #facilities:checked ~ main [for="facilities"],
+        #student-life:checked ~ main [for="student-life"],
+        #events:checked ~ main [for="events"],
+        #transport:checked ~ main [for="transport"] {
+            background-color: #f09206;
+            color: #2563eb;
+        }
+
+        /* Notification Panel */
+        .notification-panel {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 300px;
+            background: rgb(8, 0, 0);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1000;
+        }
+
+        #notification-toggle:checked ~ .notification-panel {
+            display: block;
+        }
+
+        .notification-item {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 768px) {
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Category Radio Buttons -->
+    <input type="radio" id="academic" name="category" checked hidden>
+    <input type="radio" id="facilities" name="category" hidden>
+    <input type="radio" id="student-life" name="category" hidden>
+    <input type="radio" id="events" name="category" hidden>
+    <input type="radio" id="transport" name="category" hidden>
+    <input type="checkbox" id="notification-toggle" hidden>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">Campus Hub</div>
+            </div>
+            <div class="user-section">
+                <label for="notification-toggle" class="notification-icon">🔔</label>
+                <div class="notification-panel">
+                    <div class="notification-item">New Library Hours Announced</div>
+                    <div class="notification-item">Campus Event Tonight</div>
+                    <div class="notification-item">Maintenance Update</div>
+                </div>
+                <div class="user-avatar"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search resources...">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="categories">
+            <label for="academic" class="category-btn">
+                <span class="category-icon">📚</span>
+                Academic
+            </label>
+            <label for="facilities" class="category-btn">
+                <span class="category-icon">🏛️</span>
+                Facilities
+            </label>
+            <label for="student-life" class="category-btn">
+                <span class="category-icon">👥</span>
+                Student Life
+            </label>
+            <label for="events" class="category-btn">
+                <span class="category-icon">📅</span>
+                Events
+            </label>
+            <label for="transport" class="category-btn">
+                <span class="category-icon">🚌</span>
+                Transport
+            </label>
+        </div>
+
+        <!-- Academic Section -->
+        <div class="resources-grid academic-section">
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Library Resources</h3>
+                    <span class="bookmark-icon active">⭐</span>
+                </div>
+                <p class="resource-description">Access digital libraries, research databases, and study materials</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Open until 11 PM
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Study Spaces</h3>
+                    <span class="bookmark-icon">⭐</span>
+                </div>
+                <p class="resource-description">Find available study rooms and quiet spaces across campus</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    15 rooms available
+                </div>
+            </div>
+        </div>
+
+        <!-- Facilities Section -->
+        <div class="resources-grid facilities-section">
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Gymnasium</h3>
+                    <span class="bookmark-icon">⭐</span>
+                </div>
+                <p class="resource-description">Multi-purpose indoor sports facility with modern equipment</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Open until 10 PM
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Swimming Pool</h3>
+                    <span class="bookmark-icon active">⭐</span>
+                </div>
+                <p class="resource-description">Olympic-sized pool with dedicated lanes for training</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    6 lanes available
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Life Section -->
+        <div class="resources-grid student-life-section">
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Student Clubs</h3>
+                    <span class="bookmark-icon active">⭐</span>
+                </div>
+                <p class="resource-description">Join various student organizations and clubs</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    50+ active clubs
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Campus Housing</h3>
+                    <span class="bookmark-icon">⭐</span>
+                </div>
+                <p class="resource-description">Information about dormitories and housing options</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Applications open
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Section -->
+        <div class="resources-grid events-section">
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Campus Festival</h3>
+                    <span class="bookmark-icon">⭐</span>
+                </div>
+                <p class="resource-description">Annual cultural festival with performances and food stalls</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Coming in 2 days
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Career Fair</h3>
+                    <span class="bookmark-icon active">⭐</span>
+                </div>
+                <p class="resource-description">Meet potential employers and explore job opportunities</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Next week
+                </div>
+            </div>
+        </div>
+
+        <!-- Transport Section -->
+        <div class="resources-grid transport-section">
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Campus Shuttle</h3>
+                    <span class="bookmark-icon active">⭐</span>
+                </div>
+                <p class="resource-description">Free shuttle service between campus locations</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    Next shuttle: 5 min
+                </div>
+            </div>
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <h3 class="resource-title">Parking Information</h3>
+                    <span class="bookmark-icon">⭐</span>
+                </div>
+                <p class="resource-description">Find available parking spots and permit information</p>
+                <div class="resource-status">
+                    <span class="status-indicator"></span>
+                    80 spots available
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

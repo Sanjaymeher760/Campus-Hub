@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --background-light: #f9fafb;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        /* Page Content Styles */
+        .page-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .page-content {
+            background: white;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .resource-card img {
+            max-width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            margin-top: auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="https://www.svgrepo.com/show/354864/university.svg" alt="Campus Hub Logo" class="logo-img">
+                    <a href="index.html" class="logo">Campus Hub</a>
+                </div>
+                <nav class="nav-links">
+                    <a href="academic.html">Academics</a>
+                    <a href="facilities.html">Facilities</a>
+                    <a href="student-life.html">Student Life</a>
+                    <a href="events.html">Events</a>
+                    <a href="transport.html">Transport</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 id="page-title">Campus Resources</h1>
+        </div>
+
+        <div class="page-content">
+            <div class="resource-grid" id="resource-container">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Page-specific content
+        const pageContents = {
+            // ... (previous content remains the same)
+            'facilities.html': {
+                title: 'Campus Facilities',
+                resources: [
+                    {
+                        name: 'Sports Complex',
+                        description: 'Multi-sport indoor and outdoor facilities',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/2785/2785482.png'
+                    },
+                    {
+                        name: 'Gymnasium',
+                        description: 'Modern fitness center with advanced equipment',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/2303/2303322.png'
+                    },
+                    {
+                        name: 'Swimming Pool',
+                        description: 'Olympic-sized pool with training facilities',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/3075/3075480.png'
+                    },
+                    {
+                        name: 'Food Court',
+                        description: 'Diverse dining options with multiple cuisines',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/3595/3595458.png'
+                    },
+                    {
+                        name: 'Research Labs',
+                        description: 'Advanced laboratories for scientific research',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/2784/2784445.png'
+                    },
+                    {
+                        name: 'Health Center',
+                        description: 'On-campus medical facilities and health services',
+                        icon: 'https://cdn-icons-png.flaticon.com/128/3567/3567993.png'
+                    }
+                ]
+            },
+            // ... (rest of the previous content)
+        };
+
+        // Function to load page-specific content
+        function loadPageContent() {
+            const path = window.location.pathname.split('/').pop();
+            const pageData = pageContents[path] || pageContents['academic.html'];
+            
+            // Set page title
+            document.getElementById('page-title').textContent = pageData.title;
+
+            // Populate resources
+            const container = document.getElementById('resource-container');
+            container.innerHTML = pageData.resources.map(resource => `
+                <div class="resource-card">
+                    <img src="${resource.icon}" alt="${resource.name}">
+                    <h3>${resource.name}</h3>
+                    <p>${resource.description}</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            `).join('');
+
+            // Highlight active navigation link
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === path) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Load content when page loads
+        document.addEventListener('DOMContentLoaded', loadPageContent);
+    </script>
+</body>
+</html>
